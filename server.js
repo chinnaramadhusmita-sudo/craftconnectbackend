@@ -3,7 +3,6 @@ const cors = require("cors");
 const dotenv = require("dotenv");
 const path = require("path");
 const fs = require("fs");
-const admin = require("firebase-admin");
 
 // ✅ IMPORT DB
 const connectDB = require("./config/db");
@@ -20,14 +19,6 @@ const contactRoutes = require("./routes/contactRoutes");
 dotenv.config();
 
 // ✅ INITIALIZE FIREBASE ADMIN (For Token Verification)
-const serviceAccount = require("./serviceAccountKey.json");
-
-if (!admin.apps.length) {
-  admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount),
-  });
-  console.log("Firebase Admin Initialized! ✅");
-}
 
 // ✅ CONNECT DATABASE
 connectDB();
