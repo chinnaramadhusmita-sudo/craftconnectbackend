@@ -1,6 +1,7 @@
+require("dotenv").config({ path: __dirname + "/.env" });
+console.log("FIREBASE KEY:", process.env.FIREBASE_PRIVATE_KEY ? "Loaded ✅" : "Missing ❌");
 const express = require("express");
 const cors = require("cors");
-const dotenv = require("dotenv");
 const path = require("path");
 const fs = require("fs");
 
@@ -16,10 +17,9 @@ const paymentRoutes = require("./routes/paymentRoutes");
 const orderRoutes = require("./routes/orderRoutes");
 const contactRoutes = require("./routes/contactRoutes");
 
-dotenv.config();
 
 // ✅ INITIALIZE FIREBASE ADMIN (For Token Verification)
-
+require("./config/firebaseAdmin");
 // ✅ CONNECT DATABASE
 connectDB();
 
