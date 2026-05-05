@@ -15,17 +15,20 @@ exports.addProduct = async (req, res) => {
     if (!imagePath) {
       return res.status(400).json({ error: "Product image is required" });
     }
-
-    const product = new Product({
+const product = new Product({
   name: req.body.name,
   price: req.body.price,
   category: req.body.category,
   description: req.body.description,
-  image: `/uploads/${req.file.filename}`, // ✅ FIX
-  seller: req.user.uid, // ✅ ADD THIS (Firebase user)
+  image: `/uploads/${req.file.filename}`,
+  seller: req.user.uid,
 });
 
-    res.status(201).json(product);
+// 🔥 THIS WAS MISSING
+const savedProduct = await product.save();
+
+// ✅ RETURN SAVED DATA
+res.status(201).json(savedProduct);
   } catch (error) {
     console.error("MongoDB Create Error:", error.message);
     res.status(500).json({ error: error.message });
